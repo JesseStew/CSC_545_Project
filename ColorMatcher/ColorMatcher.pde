@@ -14,7 +14,7 @@
        color of the selected area.
 */
 
-import javax.swing.*;
+import javax.swing.*; //For GUI components
 
 PImage selectedImage, rimg, currentImg, img;
 String fname, startText;
@@ -35,8 +35,10 @@ void setup() {
       + " you want to match the color to.\n"
       + "2. Click and drag the mouse to select the color you want to match. \n"
       + "3. Wait for the program to tell you the closest matches available.";
+      
   //Show the startup text
   javax.swing.JOptionPane.showMessageDialog(null, startText);
+  
   //Prompt the user to select a file to use
   selectInput("Select an image to process:", "fileSelected");
   selectedImage = loadImage(fname);
@@ -68,7 +70,8 @@ void fileSelected(File selection) {
 }
 
 
-/*Take two colors and return the difference of the colors
+/*
+  Take two colors and return the difference of the colors
   imageColor is the color from the user selected image
   pColor is the color from the color table
 */
@@ -108,14 +111,14 @@ PImage getColor(PImage img1, int sx, int sy, int ex, int ey) {
   float diff;
   String filePath;
   
-  // Calculate Median Color
+  // Calculate Mean Color
   float rSum = 0;
   float gSum = 0;
   float bSum = 0;
   float total = 0;
   for (int y = sy; y < ey; y++) {
     for (int x = sx; x < ex; x++) {
-      //insert code here to get the median of the area
+      //insert code here to get the mean of the area
       color c = target.get(x, y);
       rSum = rSum + red(c);
       gSum = gSum + green(c);
@@ -130,8 +133,10 @@ PImage getColor(PImage img1, int sx, int sy, int ex, int ey) {
   java.io.File folder = new java.io.File(dataPath("Colors"));
   String[] colorNames = folder.list();
   
-  /*Give the initial values for closestColors
-    This is just to let us compare to other colors*/
+  /*
+    Give the initial values for closestColors
+    This is just to let us compare to other colors
+  */
   ArrayList<Float> diffs = new ArrayList<Float>();
   for (int i = 0; i < numberOfColors; i++){
    closestColors.add(i, colorNames[i]);
@@ -164,8 +169,7 @@ PImage getColor(PImage img1, int sx, int sy, int ex, int ey) {
 }
 
 
-void mousePressed()
-{
+void mousePressed() {
   startX = mouseX;
   startY = mouseY;
 }
